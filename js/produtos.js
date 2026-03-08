@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Função auxiliar para definir classes e cores baseado na plataforma
   function getPlataformaInfo(plataforma) {
-    if (!plataforma) return { class: "", color: "var(--color-primary)", textColor: "#fff" };
+    if (!plataforma) return { class: "", color: "var(--color-blue)", textColor: "#fff" };
     
     if (plataforma.toLowerCase().includes("mercado livre") || plataforma.toLowerCase() === "ml") {
       return { class: "platform-ml", color: "#3483fa", textColor: "#fff" };
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (plataforma.toLowerCase().includes("amazon")) {
       return { class: "platform-amazon", color: "#ff9900", textColor: "#111" };
     }
-    return { class: "", color: "var(--color-primary)", textColor: "#fff" }; // Padrão
+    return { class: "", color: "var(--color-blue)", textColor: "#fff" }; // Padrão
   }
 
   // Gera HTML de um Produto
