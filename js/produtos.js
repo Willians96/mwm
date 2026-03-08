@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!produto.link) return;
     
     try {
-      const resp = await fetch(`/.netlify/functions/get-price?url=${encodeURIComponent(produto.link)}`);
+      const resp = await fetch(`/api/get-price?url=${encodeURIComponent(produto.link)}`);
       if (resp.ok) {
         const data = await resp.json();
         
