@@ -1,6 +1,10 @@
 backend:
   name: git-gateway
   branch: main
+  site_domain: mwminformatica.netlify.app
+
+site_url: https://mwm-topaz.vercel.app
+display_url: https://mwm-topaz.vercel.app
 
 media_folder: "img"
 public_folder: "../img"
