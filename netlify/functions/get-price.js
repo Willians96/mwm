@@ -43,10 +43,23 @@ exports.handler = async function(event, context) {
         }
       }
 
-      // Procura a imagem do Produto (no OpenGraph)
-      const matchImg = html.match(/<meta property="og:image" content="([^"]+)"/i);
+      // Procura a imagem do Produto (várias alternativas)
+      const matchImg = html.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/i);
+      const matchImgTw = html.match(/<meta\s+name=["']twitter:image["']\s+content=["']([^"']+)["']/i);
+      const matchMlsWebp = html.match(/https:\/\/http2\.mlstatic\.com\/D_NQ_NP_[A-Za-z0-9_]+\.webp/);
+      const matchMlsJpg = html.match(/https:\/\/http2\.mlstatic\.com\/D_NQ_NP_[A-Za-z0-9_]+\.jpg/);
+      const fallbackImg = html.match(/<img[^>]+ui-pdp-gallery__figure__image[^>]+src=["']([^"']+)["']/i);
+
       if (matchImg) {
         image = matchImg[1];
+      } else if (matchImgTw) {
+        image = matchImgTw[1];
+      } else if (matchMlsWebp) {
+        image = matchMlsWebp[0];
+      } else if (matchMlsJpg) {
+        image = matchMlsJpg[0];
+      } else if (fallbackImg) {
+        image = fallbackImg[1];
       }
     }
     // TODO: Adicionar lógica da amazon/shopee caso queira
