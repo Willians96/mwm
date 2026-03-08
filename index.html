@@ -8,6 +8,7 @@
     content="MWM informatica e consultoria — Organização e estabilidade tecnológica para pequenos negócios. Diagnóstico gratuito para clínicas, salões, comércios e profissionais.">
   <meta name="theme-color" content="#0B3D5C">
   <title>MWM informatica e consultoria — Seu negócio não pode parar</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <!-- Open Graph / WhatsApp / LinkedIn -->
   <meta property="og:type" content="website">
@@ -359,6 +360,17 @@
   </a>
 
   <script src="js/main.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>

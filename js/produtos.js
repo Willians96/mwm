@@ -1,64 +1,14 @@
-/**
- * Lista de Produtos Afiliados
- * Para adicionar um novo produto, basta copiar um bloco { ... } e colar abaixo.
- */
-const produtosAfiliados = [
-  {
-    id: 1,
-    nome: "Notebook Lenovo IdeaPad Ryzen 5",
-    preco: "R$ 2.499,00",
-    imagem: "https://http2.mlstatic.com/D_NQ_NP_2X_824148-MLA74609802062_022024-F.webp",
-    link: "https://www.mercadolivre.com.br/", // <-- COLOQUE SEU LINK DE AFILIADO AQUI
-    plataforma: "Mercado Livre",
-    categoria: "Computadores"
-  },
-  {
-    id: 2,
-    nome: "Kit Teclado e Mouse sem fio Logitech",
-    preco: "R$ 150,00",
-    imagem: "https://http2.mlstatic.com/D_NQ_NP_2X_616942-MLU74384661793_022024-F.webp",
-    link: "https://www.mercadolivre.com.br/", // <-- COLOQUE SEU LINK DE AFILIADO AQUI
-    plataforma: "Mercado Livre",
-    categoria: "Periféricos"
-  },
-  {
-    id: 3,
-    nome: "Mousepad Extra Grande Gamer",
-    preco: "R$ 45,00",
-    imagem: "https://cf.shopee.com.br/file/br-11134207-7r98o-lsth6xwxg7kx2d",
-    link: "https://shopee.com.br/", // <-- COLOQUE SEU LINK DE AFILIADO AQUI
-    plataforma: "Shopee",
-    categoria: "Acessórios"
-  },
-  {
-    id: 4,
-    nome: "SSD NVMe 1TB Kingston",
-    preco: "R$ 380,00",
-    imagem: "https://http2.mlstatic.com/D_NQ_NP_2X_709282-MLU52331826065_112022-F.webp",
-    link: "https://www.mercadolivre.com.br/", // <-- COLOQUE SEU LINK DE AFILIADO AQUI
-    plataforma: "Mercado Livre",
-    categoria: "Hardware"
-  },
-  {
-    id: 5,
-    nome: "Filtro de Linha / DPS Clamper",
-    preco: "R$ 65,00",
-    imagem: "https://down-br.img.susercontent.com/file/br-11134207-7r98o-lstvng9x0w7u6f",
-    link: "https://shopee.com.br/", // <-- COLOQUE SEU LINK DE AFILIADO AQUI
-    plataforma: "Shopee",
-    categoria: "Energia"
-  }
-];
-
-// --- LÓGICA DE RENDERIZAÇÃO DA LOJA --- //
+// --- LÓGICA DE RENDERIZAÇÃO DA LOJA (COM DADOS DO NETLIFY CMS) --- //
 document.addEventListener("DOMContentLoaded", () => {
   const listaContainer = document.getElementById("produtos-lista");
   const filtrosContainer = document.getElementById("filtros-container");
 
-  if (!listaContainer) return; // Só roda na página da loja
+  if (!listaContainer) return; // Só roda na aba de loja recomendada
 
   // Função auxiliar para definir classes e cores baseado na plataforma
   function getPlataformaInfo(plataforma) {
+    if (!plataforma) return { class: "", color: "var(--color-primary)", textColor: "#fff" };
+    
     if (plataforma.toLowerCase().includes("mercado livre") || plataforma.toLowerCase() === "ml") {
       return { class: "platform-ml", color: "#3483fa", textColor: "#fff" };
     }
@@ -75,11 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderProduto(produto) {
     const platInfo = getPlataformaInfo(produto.plataforma);
 
+    // Ajuste da Imagem (externa ou local pelo CMS)
+    let urlImagem = produto.imagem;
+    if (produto.imagem_externa) {
+      urlImagem = produto.imagem_externa;
+    }
+
     return `
-      <li class="product-card card" data-categoria="${produto.categoria}">
+      <li class="product-card card" data-categoria="${produto.categoria || 'Geral'}">
         <div class="product-image-container">
-          <span class="product-platform ${platInfo.class}">${produto.plataforma}</span>
-          <img src="${produto.imagem}" class="product-image" alt="${produto.nome}" loading="lazy">
+          ${produto.plataforma ? `<span class="product-platform ${platInfo.class}">${produto.plataforma}</span>` : ''}
+          <img src="${urlImagem || ''}" class="product-image" alt="${produto.nome}" loading="lazy">
         </div>
         <h3 class="product-title">${produto.nome}</h3>
         <p class="product-price">${produto.preco}</p>
@@ -90,17 +46,24 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  // Exibe todos os produtos
+  // Exibe todos os produtos gerando os HTMLs
   function renderTodos(produtos) {
+    if (!produtos || produtos.length === 0) {
+      listaContainer.innerHTML = '<p style="text-align:center;width:100%;">Nenhum produto cadastrado ainda.</p>';
+      return;
+    }
     listaContainer.innerHTML = produtos.map(renderProduto).join('');
   }
 
-  // Filtros de Categoria
-  function criarFiltros() {
-    if (!filtrosContainer) return;
+  // Filtros Dinâmicos de Categoria
+  function criarFiltros(produtos) {
+    if (!filtrosContainer || !produtos) return;
 
-    // Pega categorias únicas
-    const categorias = [...new Set(produtosAfiliados.map(p => p.categoria))].filter(Boolean);
+    // Pega as categorias únicas e remove undefined/null
+    let categorias = produtos.map(p => p.categoria).filter(Boolean);
+    categorias = [...new Set(categorias)];
+    
+    // Insere "Todos" no início
     categorias.unshift("Todos");
 
     filtrosContainer.innerHTML = categorias.map((cat, index) => `
@@ -109,28 +72,43 @@ document.addEventListener("DOMContentLoaded", () => {
       </button>
     `).join('');
 
-    // Eventos de Filtro
+    // Eventos de clique no Filtro
     const botoesFiltro = filtrosContainer.querySelectorAll(".filter-btn");
     botoesFiltro.forEach(btn => {
       btn.addEventListener("click", (e) => {
-        // Remove class ativo de todos
+        // Remove active de todos
         botoesFiltro.forEach(b => b.classList.remove("active"));
-        // Adiciona no clicado
+        // Adiciona classe active no selecionado
         e.target.classList.add("active");
 
         const categoriaSelecionada = e.target.getAttribute("data-filter");
 
         if (categoriaSelecionada === "Todos") {
-          renderTodos(produtosAfiliados);
+          renderTodos(produtos);
         } else {
-          const filtrados = produtosAfiliados.filter(p => p.categoria === categoriaSelecionada);
+          const filtrados = produtos.filter(p => p.categoria === categoriaSelecionada);
           renderTodos(filtrados);
         }
       });
     });
   }
 
-  // Inicializa a Loja
-  renderTodos(produtosAfiliados);
-  criarFiltros();
+  // Inicializa buscando os dados JSON que são alimentados pelo CMS
+  fetch('data/produtos.json')
+    .then(response => {
+      if (!response.ok) {
+         throw new Error('Falha ao buscar produtos.json');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Netlify CMS cria objetos baseados na config, como colocamos "itens" como lista, pegamos dele:
+      const produtosListados = data.itens || [];
+      renderTodos(produtosListados);
+      criarFiltros(produtosListados);
+    })
+    .catch(error => {
+      console.error("Erro ao tentar carregar a lista de produtos:", error);
+      listaContainer.innerHTML = '<p style="text-align: center; width: 100%;">Dificuldades em carregar a vitrine no momento.</p>';
+    });
 });

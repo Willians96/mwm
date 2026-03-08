@@ -1,0 +1,28 @@
+{
+  "itens": [
+    {
+      "nome": "Notebook Lenovo IdeaPad Ryzen 5",
+      "preco": "R$ 2.499,00",
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_824148-MLA74609802062_022024-F.webp",
+      "link": "https://meli.la/2uew4bn",
+      "plataforma": "Mercado Livre",
+      "categoria": "Computadores"
+    },
+    {
+      "nome": "Kit Teclado e Mouse sem fio Logitech",
+      "preco": "R$ 150,00",
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_616942-MLU74384661793_022024-F.webp",
+      "link": "https://www.mercadolivre.com.br/",
+      "plataforma": "Mercado Livre",
+      "categoria": "Periféricos"
+    },
+    {
+      "nome": "Mousepad Extra Grande Gamer",
+      "preco": "R$ 45,00",
+      "imagem": "https://cf.shopee.com.br/file/br-11134207-7r98o-lsth6xwxg7kx2d",
+      "link": "https://shopee.com.br/",
+      "plataforma": "Shopee",
+      "categoria": "Acessórios"
+    }
+  ]
+}

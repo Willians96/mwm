@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "img"
+public_folder: "../img"
+
+collections:
+  - name: "loja"
+    label: "Configurações da Loja"
+    files:
+      - label: "Produtos Afiliados"
+        name: "produtos"
+        file: "data/produtos.json"
+        description: "Lista de todos os produtos recomendados na aba Loja"
+        fields:
+          - label: "Lista de Produtos"
+            name: "itens"
+            widget: "list"
+            fields:
+              - {label: "Nome do Produto", name: "nome", widget: "string"}
+              - {label: "Preço", name: "preco", widget: "string", hint: "Ex: R$ 2.499,00"}
+              - {label: "Imagem", name: "imagem", widget: "string", hint: "Link da imagem original do produto (Mercado Livre, Shopee, etc)"}
+              - {label: "Seu Link de Afiliado", name: "link", widget: "string"}
+              - {label: "Plataforma", name: "plataforma", widget: "select", options: ["Mercado Livre", "Shopee", "Amazon", "Outro"]}
+              - {label: "Categoria", name: "categoria", widget: "string"}
