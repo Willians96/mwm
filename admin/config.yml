@@ -19,8 +19,8 @@ collections:
             widget: "list"
             fields:
               - {label: "Nome do Produto", name: "nome", widget: "string"}
-              - {label: "Preço", name: "preco", widget: "string", hint: "Ex: R$ 2.499,00"}
-              - {label: "Imagem", name: "imagem", widget: "string", hint: "Link da imagem original do produto (Mercado Livre, Shopee, etc)"}
+              - {label: "Preço", name: "preco", widget: "string", required: false, hint: "Apenas se quiser fixar um preço diferente do Automático. Deixe em branco para ML/Shopee."}
+              - {label: "Imagem", name: "imagem", widget: "string", required: false, hint: "Apenas se a foto automática não carregar ou quiser uma diferente."}
               - {label: "Seu Link de Afiliado", name: "link", widget: "string"}
               - {label: "Plataforma", name: "plataforma", widget: "select", options: ["Mercado Livre", "Shopee", "Amazon", "Outro"]}
               - {label: "Categoria", name: "categoria", widget: "string"}

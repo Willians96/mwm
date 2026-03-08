@@ -22,28 +22,61 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Gera HTML de um Produto
-  function renderProduto(produto) {
+  function renderProduto(produto, index) {
     const platInfo = getPlataformaInfo(produto.plataforma);
 
-    // Ajuste da Imagem (externa ou local pelo CMS)
-    let urlImagem = produto.imagem;
-    if (produto.imagem_externa) {
-      urlImagem = produto.imagem_externa;
-    }
+    // Ajuste da Imagem inicial (externa ou local pelo CMS)
+    let urlImagem = produto.imagem || "img/loading-placeholder.gif"; // ou imagem cinza padrão
+
+    // Inicialmente mostra um texto de "Carregando..." caso seja ML e não tenha preço fixo
+    let precoExibicao = produto.preco || "Verificando...";
 
     return `
-      <li class="product-card card" data-categoria="${produto.categoria || 'Geral'}">
+      <li class="product-card card" data-categoria="${produto.categoria || 'Geral'}" id="prod-${index}">
         <div class="product-image-container">
           ${produto.plataforma ? `<span class="product-platform ${platInfo.class}">${produto.plataforma}</span>` : ''}
-          <img src="${urlImagem || ''}" class="product-image" alt="${produto.nome}" loading="lazy">
+          <img src="${urlImagem}" class="product-image" alt="${produto.nome}" loading="lazy" id="img-prod-${index}">
         </div>
         <h3 class="product-title">${produto.nome}</h3>
-        <p class="product-price">${produto.preco}</p>
+        <p class="product-price" id="price-prod-${index}">${precoExibicao}</p>
         <a href="${produto.link}" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--full" style="background-color: ${platInfo.color}; border-color: ${platInfo.color}; color: ${platInfo.textColor}; margin-top: auto;">
           Ver na Loja
         </a>
       </li>
     `;
+  }
+
+  // Busca Preço Real-time na Function
+  async function fetchPrecoDinamico(produto, index) {
+    // Só busca de verdade se a url existir e se não tiver passado o preço fixo antes
+    if (!produto.link) return;
+    
+    try {
+      const resp = await fetch(`/.netlify/functions/get-price?url=${encodeURIComponent(produto.link)}`);
+      if (resp.ok) {
+        const data = await resp.json();
+        
+        // Atualiza a interface
+        const priceEl = document.getElementById(`price-prod-${index}`);
+        const imgEl = document.getElementById(`img-prod-${index}`);
+        
+        if (priceEl && data.price && data.price !== "Consultar Site") {
+          priceEl.textContent = data.price;
+        } else if (priceEl && !produto.preco) {
+           priceEl.textContent = "Consultar na Loja";
+        }
+        
+        if (imgEl && data.image && !produto.imagem) {
+          imgEl.src = data.image;
+        }
+      }
+    } catch (e) {
+      console.log("Erro ao buscar preço dinâmico", e);
+      const priceEl = document.getElementById(`price-prod-${index}`);
+      if (priceEl && priceEl.textContent === "Verificando...") {
+        priceEl.textContent = "Ver Preço Oficial";
+      }
+    }
   }
 
   // Exibe todos os produtos gerando os HTMLs
@@ -52,7 +85,17 @@ document.addEventListener("DOMContentLoaded", () => {
       listaContainer.innerHTML = '<p style="text-align:center;width:100%;">Nenhum produto cadastrado ainda.</p>';
       return;
     }
-    listaContainer.innerHTML = produtos.map(renderProduto).join('');
+    
+    // 1. Gera o HTML de todos
+    listaContainer.innerHTML = produtos.map((p, i) => renderProduto(p, i)).join('');
+    
+    // 2. Dispara requests dinâmicos para atualizar em tempo real
+    produtos.forEach((p, i) => {
+      // Se não definiu o preco/imagem no admin (ou mesmo se quiser sobrepor)
+      if (!p.preco || !p.imagem || p.link.includes('meli.la') || p.link.includes('mercadolivre.com')) {
+        fetchPrecoDinamico(p, i);
+      }
+    });
   }
 
   // Filtros Dinâmicos de Categoria
