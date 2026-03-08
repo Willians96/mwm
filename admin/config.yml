@@ -3,6 +3,7 @@ backend:
   repo: Willians96/mwm
   branch: main
   base_url: https://mwm-topaz.vercel.app
+  auth_endpoint: api/auth
 display_url: https://mwm-topaz.vercel.app
 
 media_folder: "img"
