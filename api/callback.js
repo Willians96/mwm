@@ -18,6 +18,7 @@ export default async function handler(req, res) {
         client_id: clientId,
         client_secret: clientSecret,
         code: code,
+        redirect_uri: "https://mwm-topaz.vercel.app/api/callback"
       }),
     });
 
@@ -25,7 +26,7 @@ export default async function handler(req, res) {
     const token = tokenData.access_token;
 
     if (!token) {
-      return res.status(500).send(`Erro ao obter o token (Verifique o Client Secret).`);
+      return res.status(500).send(`Erro ao obter o token. Resposta do GitHub: ${JSON.stringify(tokenData)}`);
     }
 
     const script = `
