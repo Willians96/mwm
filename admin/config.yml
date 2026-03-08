@@ -1,9 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Willians96/mwm
   branch: main
-  base_url: https://mwminformatica.netlify.app
-
-site_url: https://mwm-topaz.vercel.app
+  base_url: https://mwm-topaz.vercel.app
 display_url: https://mwm-topaz.vercel.app
 
 media_folder: "img"
