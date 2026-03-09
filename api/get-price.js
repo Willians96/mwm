@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
     if (url.includes("mercadolivre.com.br") || url.includes("meli.la")) {
       const formatedHtml = html.replace(/\n|\r/g, "");
-      const matchFracao = formatedHtml.match(/<span class="andes-money-amount__fraction"\s*>([^<]+)<\/span>/);
+      const matchFracao = formatedHtml.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
       const matchCentavos = formatedHtml.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
       
       if (matchFracao) {
