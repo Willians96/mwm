@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Loja recomendada MWM informatica e consultoria — Os melhores equipamentos de TI.">
+  <meta name="description" content="Loja recomendada MWM informatica e consultoria — Os melhores equipamentos de TI.">
   <meta name="theme-color" content="#0B3D5C">
   <title>Loja | MWM informatica e consultoria</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -23,17 +22,19 @@
       padding: var(--space-5) 0 var(--space-4);
       text-align: center;
     }
+
     .store-hero h1 {
       font-size: 2.5rem;
       margin-bottom: var(--space-2);
     }
+
     .store-hero p {
       font-size: 1.125rem;
       opacity: 0.9;
       max-width: 600px;
       margin: 0 auto;
     }
-    
+
     .product-card {
       display: flex;
       flex-direction: column;
@@ -41,10 +42,12 @@
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .product-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow-md);
     }
+
     .product-image-container {
       background: white;
       padding: 1rem;
@@ -56,11 +59,13 @@
       height: 200px;
       position: relative;
     }
+
     .product-image {
       max-height: 100%;
       max-width: 100%;
       object-fit: contain;
     }
+
     .product-platform {
       position: absolute;
       top: 10px;
@@ -71,22 +76,33 @@
       border-radius: 4px;
       color: white;
     }
-    .platform-ml { background-color: #3483fa; }
-    .platform-shopee { background-color: #ee4d2d; }
-    .platform-amazon { background-color: #ff9900; color: #111;}
+
+    .platform-ml {
+      background-color: #3483fa;
+    }
+
+    .platform-shopee {
+      background-color: #ee4d2d;
+    }
+
+    .platform-amazon {
+      background-color: #ff9900;
+      color: #111;
+    }
 
     .product-title {
       font-size: 1.1rem;
       margin-bottom: 0.5rem;
       flex-grow: 1;
     }
+
     .product-price {
       font-size: 1.5rem;
       font-weight: 700;
       color: #00A650;
       margin-bottom: 1rem;
     }
-    
+
     .filter-bar {
       margin: var(--space-4) 0;
       display: flex;
@@ -94,6 +110,7 @@
       gap: 1rem;
       flex-wrap: wrap;
     }
+
     .filter-btn {
       padding: 8px 16px;
       border: 1px solid var(--color-gray-200);
@@ -103,7 +120,9 @@
       font-weight: 500;
       transition: all 0.2s;
     }
-    .filter-btn.active, .filter-btn:hover {
+
+    .filter-btn.active,
+    .filter-btn:hover {
       background: var(--color-blue);
       color: var(--color-white);
       border-color: var(--color-blue);
@@ -112,7 +131,8 @@
 </head>
 
 <body>
-  <header class="header" id="header" style="position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: var(--shadow-sm); z-index: 100;">
+  <header class="header" id="header"
+    style="position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: var(--shadow-sm); z-index: 100;">
     <div class="header__inner container">
       <a href="index.html" class="logo" aria-label="MWM informatica e consultoria - Página inicial">
         <img src="img/logo2.png" alt="" class="logo__img" width="160" height="160">
@@ -135,15 +155,16 @@
     <section class="store-hero">
       <div class="container">
         <h1>Loja de Equipamentos</h1>
-        <p>Selecionamos a dedo os melhores equipamentos com o melhor custo-benefício. Compre com segurança nas maiores lojas do Brasil através de nossas indicações.</p>
+        <p>Selecionamos os melhores equipamentos com o melhor custo-benefício. Compre com segurança nas maiores lojas do Brasil através de nossas indicações. Clique no link do produto e ganhe um desconto especial.</p>
       </div>
     </section>
 
-    <section class="store-content" style="padding: var(--space-4) 0; background-color: var(--color-gray-100); min-height: 50vh;">
+    <section class="store-content"
+      style="padding: var(--space-4) 0; background-color: var(--color-gray-100); min-height: 50vh;">
       <div class="container">
         <!-- Filtros serão gerados via JS -->
         <div id="filtros-container" class="filter-bar"></div>
-        
+
         <!-- Grid de Produtos -->
         <ul id="produtos-lista" class="grid grid--3">
           <!-- Produtos serão inseridos aqui pelo produtos.js -->
@@ -164,7 +185,8 @@
         <p><a href="mailto:contato@mwtecnologia.com.br">contato@mwtecnologia.com.br</a></p>
         <p><a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
       </div>
-      <p class="footer__copy">&copy; <span data-year></span> MWM informatica e consultoria. Todos os direitos reservados.
+      <p class="footer__copy">&copy; <span data-year></span> MWM informatica e consultoria. Todos os direitos
+        reservados.
       </p>
     </div>
   </footer>
@@ -172,4 +194,5 @@
   <script src="js/main.js"></script>
   <script src="js/produtos.js"></script>
 </body>
+
 </html>
