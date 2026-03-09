@@ -9,12 +9,15 @@ export default async function handler(req, res) {
       }
     });
     const html = await response.text();
+    const moneyMatches = html.match(/class="[^"]*money[^"]*"[^>]*>([^<]+)/gi);
+    const rsMatches = html.match(/R\$[\s]*[0-9.,]+/gi);
+
     res.status(200).send(`
       <h1>Status: ${response.status}</h1>
-      <h2>HTML (primeiros 500 chars):</h2>
-      <pre>${html.substring(0, 500).replace(/</g, "&lt;")}</pre>
-      <h2>Regex teste:</h2>
-      <pre>${html.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)/)?.[1] || "Not Found"}</pre>
+      <h2>Possíveis classes de money:</h2>
+      <pre>${moneyMatches ? moneyMatches.slice(0, 5).join('\\n') : 'none'}</pre>
+      <h2>Regex R$:</h2>
+      <pre>${rsMatches ? rsMatches.slice(0, 5).join('\\n') : 'none'}</pre>
     `);
   } catch (error) {
     res.status(500).send(error.message);
