@@ -61,7 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const imgEl = document.getElementById(`img-prod-${index}`);
         
         if (priceEl && data.price && data.price !== "Consultar Site") {
-          priceEl.textContent = data.price;
+          if (data.originalPrice && data.discount) {
+            priceEl.innerHTML = `<s style="color: #999; font-size: 0.85em;">${data.originalPrice}</s><br/>
+                                 <strong style="color: var(--color-blue);">${data.price}</strong> 
+                                 <span style="color: #00a650; font-size: 0.8em; font-weight: bold; margin-left: 4px;">${data.discount}</span>`;
+          } else {
+            priceEl.textContent = data.price;
+          }
         } else if (priceEl && !produto.preco) {
            priceEl.textContent = "Consultar na Loja";
         }

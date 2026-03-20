@@ -22,18 +22,43 @@ export default async function handler(req, res) {
 
     const html = await response.text();
     let price = "Consultar Site";
+    let originalPrice = null;
+    let discount = null;
     let image = "";
 
     if (url.includes("mercadolivre.com.br") || url.includes("meli.la")) {
       const formatedHtml = html.replace(/\n|\r/g, "");
-      const matchFracao = formatedHtml.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
-      const matchCentavos = formatedHtml.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
       
-      if (matchFracao) {
-        price = "R$ " + matchFracao[1];
-        if (matchCentavos) {
-           price += "," + matchCentavos[1];
+      const matchPrevBlock = formatedHtml.match(/<s[^>]*andes-money-amount--previous[^>]*>.*?<\/s>/i);
+      if (matchPrevBlock) {
+        const matchPrevFra = matchPrevBlock[0].match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
+        const matchPrevCen = matchPrevBlock[0].match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
+        if (matchPrevFra) {
+           originalPrice = "R$ " + matchPrevFra[1];
+           if (matchPrevCen) {
+               originalPrice += "," + matchPrevCen[1];
+           }
         }
+        
+        const remainingHtml = formatedHtml.substring(formatedHtml.indexOf(matchPrevBlock[0]) + matchPrevBlock[0].length);
+        const matchFracao = remainingHtml.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
+        const matchCentavos = remainingHtml.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
+        if (matchFracao) {
+          price = "R$ " + matchFracao[1];
+          if (matchCentavos) price += "," + matchCentavos[1];
+        }
+      } else {
+        const matchFracao = formatedHtml.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
+        const matchCentavos = formatedHtml.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
+        if (matchFracao) {
+          price = "R$ " + matchFracao[1];
+          if (matchCentavos) price += "," + matchCentavos[1];
+        }
+      }
+
+      const matchDiscount = formatedHtml.match(/>(\d+%?\s*OFF)</i);
+      if (matchDiscount) {
+         discount = matchDiscount[1];
       }
 
       const matchImg = html.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/i);
@@ -42,20 +67,14 @@ export default async function handler(req, res) {
       const matchMlsJpg = html.match(/https:\/\/http2\.mlstatic\.com\/D_NQ_NP_[A-Za-z0-9_]+\.jpg/);
       const fallbackImg = html.match(/<img[^>]+ui-pdp-gallery__figure__image[^>]+src=["']([^"']+)["']/i);
 
-      if (matchImg) {
-        image = matchImg[1];
-      } else if (matchImgTw) {
-        image = matchImgTw[1];
-      } else if (matchMlsWebp) {
-        image = matchMlsWebp[0];
-      } else if (matchMlsJpg) {
-        image = matchMlsJpg[0];
-      } else if (fallbackImg) {
-        image = fallbackImg[1];
-      }
+      if (matchImg) image = matchImg[1];
+      else if (matchImgTw) image = matchImgTw[1];
+      else if (matchMlsWebp) image = matchMlsWebp[0];
+      else if (matchMlsJpg) image = matchMlsJpg[0];
+      else if (fallbackImg) image = fallbackImg[1];
     }
 
-    return res.status(200).json({ price: price, image: image, url: url });
+    return res.status(200).json({ price, originalPrice, discount, image, url });
   } catch (error) {
     console.error("Erro na Extração:", error);
     return res.status(500).json({ error: "Falha na extração de dados", details: error.message });
