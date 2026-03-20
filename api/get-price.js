@@ -43,6 +43,8 @@ export default async function handler(req, res) {
                 originalPrice = "R$ " + matchPrevFra[1];
                 if (matchPrevCen) {
                     originalPrice += "," + matchPrevCen[1];
+                } else {
+                    originalPrice += ",00";
                 }
              }
              
@@ -52,6 +54,7 @@ export default async function handler(req, res) {
              if (matchFracao) {
                price = "R$ " + matchFracao[1];
                if (matchCentavos) price += "," + matchCentavos[1];
+               else price += ",00";
              }
          } else {
              const matchFracao = mainProductBlock.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
@@ -59,6 +62,7 @@ export default async function handler(req, res) {
              if (matchFracao) {
                price = "R$ " + matchFracao[1];
                if (matchCentavos) price += "," + matchCentavos[1];
+               else price += ",00";
              }
          }
 

@@ -49,6 +49,8 @@ exports.handler = async function(event, context) {
                 originalPrice = "R$ " + matchPrevFra[1];
                 if (matchPrevCen) {
                     originalPrice += "," + matchPrevCen[1];
+                } else {
+                    originalPrice += ",00";
                 }
              }
              
@@ -58,6 +60,7 @@ exports.handler = async function(event, context) {
              if (matchFracao) {
                price = "R$ " + matchFracao[1];
                if (matchCentavos) price += "," + matchCentavos[1];
+               else price += ",00";
              }
          } else {
              const matchFracao = mainProductBlock.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
@@ -65,6 +68,7 @@ exports.handler = async function(event, context) {
              if (matchFracao) {
                price = "R$ " + matchFracao[1];
                if (matchCentavos) price += "," + matchCentavos[1];
+               else price += ",00";
              }
          }
 

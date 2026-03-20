@@ -62,9 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (priceEl && data.price && data.price !== "Consultar Site") {
           if (data.originalPrice && data.discount) {
-            priceEl.innerHTML = `<s style="color: #999; font-size: 0.85em;">${data.originalPrice}</s><br/>
-                                 <strong style="color: var(--color-blue);">${data.price}</strong> 
-                                 <span style="color: #00a650; font-size: 0.8em; font-weight: bold; margin-left: 4px;">${data.discount}</span>`;
+            priceEl.innerHTML = `<span style="display: block; color: #999; font-size: 0.6em; font-weight: normal; line-height: 1; margin-bottom: 4px;"><s>${data.originalPrice}</s></span>
+                                 <span style="color: #00A650;">${data.price}</span>
+                                 <span style="color: #00A650; font-size: 0.65em; font-weight: 700; margin-left: 6px;">${data.discount}</span>`;
           } else {
             priceEl.textContent = data.price;
           }
