@@ -37,38 +37,41 @@ exports.handler = async function(event, context) {
       
       const firstFractionIndex = formatedHtml.indexOf('class="andes-money-amount__fraction"');
       if (firstFractionIndex !== -1) {
-         const startIndex = Math.max(0, firstFractionIndex - 500);
-         const endIndex = Math.min(formatedHtml.length, firstFractionIndex + 1000);
+         const startIndex = Math.max(0, firstFractionIndex - 1000);
+         const endIndex = Math.min(formatedHtml.length, firstFractionIndex + 3000);
          const mainProductBlock = formatedHtml.substring(startIndex, endIndex);
 
-         const matchPrevBlock = mainProductBlock.match(/<s[^>]*andes-money-amount--previous[^>]*>.*?<\/s>/i);
-         if (matchPrevBlock) {
-             const matchPrevFra = matchPrevBlock[0].match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
-             const matchPrevCen = matchPrevBlock[0].match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
-             if (matchPrevFra) {
-                originalPrice = "R$ " + matchPrevFra[1];
-                if (matchPrevCen) {
-                    originalPrice += "," + matchPrevCen[1];
-                } else {
-                    originalPrice += ",00";
-                }
-             }
+         let foundDiscount = false;
+         const matchPrevTag = mainProductBlock.match(/class=["'][^"']*andes-money-amount--previous[^"']*["']/i);
+         
+         if (matchPrevTag) {
+             const prevStart = matchPrevTag.index;
+             const prevBlock = mainProductBlock.substring(prevStart, prevStart + 400);
              
-             const remainingHtml = mainProductBlock.substring(mainProductBlock.indexOf(matchPrevBlock[0]) + matchPrevBlock[0].length);
-             const matchFracao = remainingHtml.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
-             const matchCentavos = remainingHtml.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
-             if (matchFracao) {
-               price = "R$ " + matchFracao[1];
-               if (matchCentavos) price += "," + matchCentavos[1];
-               else price += ",00";
+             const matchPrevFra = prevBlock.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/i);
+             const matchPrevCen = prevBlock.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/i);
+             
+             if (matchPrevFra) {
+                 originalPrice = "R$ " + matchPrevFra[1] + "," + (matchPrevCen ? matchPrevCen[1] : "00");
+                 
+                 const endOfPrevFra = prevStart + prevBlock.indexOf(matchPrevFra[0]) + matchPrevFra[0].length;
+                 const remainingHtml = mainProductBlock.substring(endOfPrevFra);
+                 
+                 const matchFracao = remainingHtml.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/i);
+                 const matchCentavos = remainingHtml.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/i);
+                 
+                 if (matchFracao) {
+                     price = "R$ " + matchFracao[1] + "," + (matchCentavos ? matchCentavos[1] : "00");
+                     foundDiscount = true;
+                 }
              }
-         } else {
-             const matchFracao = mainProductBlock.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
-             const matchCentavos = mainProductBlock.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
+         }
+         
+         if (!foundDiscount) {
+             const matchFracao = mainProductBlock.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/i);
+             const matchCentavos = mainProductBlock.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/i);
              if (matchFracao) {
-               price = "R$ " + matchFracao[1];
-               if (matchCentavos) price += "," + matchCentavos[1];
-               else price += ",00";
+                 price = "R$ " + matchFracao[1] + "," + (matchCentavos ? matchCentavos[1] : "00");
              }
          }
 
