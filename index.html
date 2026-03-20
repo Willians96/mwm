@@ -291,11 +291,10 @@
           <p class="contact__intro">Fale conosco por WhatsApp, e-mail ou preencha o formulário. Retornamos em breve.</p>
         </header>
         <div class="contact__content">
-          <form class="contact-form" name="contato" method="post" data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="contato" />
-            <div style="display:none;">
-              <label>Não preencha se for humano: <input name="bot-field" /></label>
-            </div>
+          <form class="contact-form" action="https://formsubmit.co/mwmtecnoinfo@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Novo Contato do Site MWM!">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
             <div class="contact-form__row">
               <label class="contact-form__label" for="name">Nome</label>
               <input class="contact-form__input" id="name" name="name" type="text" required autocomplete="name"

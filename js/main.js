@@ -73,18 +73,29 @@
       }
       
       var formData = new FormData(FORM);
-      fetch('/', {
+      fetch('https://formsubmit.co/ajax/mwmtecnoinfo@gmail.com', {
         method: 'POST',
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString()
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          Nome: formData.get('name'),
+          Email: formData.get('email'),
+          WhatsApp: formData.get('phone'),
+          Mensagem: formData.get('message')
+        })
       })
       .then(function(res) {
         if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then(function(data) {
         if (btn) {
           btn.disabled = false;
           btn.textContent = originalText;
         }
-        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+        alert('Mensagem enviada com sucesso! Verifique seu e-mail mwmtecnoinfo@gmail.com para ativar o recebimento (apenas na primeira vez).');
         FORM.reset();
       })
       .catch(function() {
