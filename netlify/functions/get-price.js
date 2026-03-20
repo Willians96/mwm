@@ -35,36 +35,43 @@ exports.handler = async function(event, context) {
     if (url.includes("mercadolivre.com.br") || url.includes("meli.la")) {
       const formatedHtml = html.replace(/\n|\r/g, "");
       
-      const matchPrevBlock = formatedHtml.match(/<s[^>]*andes-money-amount--previous[^>]*>.*?<\/s>/i);
-      if (matchPrevBlock) {
-        const matchPrevFra = matchPrevBlock[0].match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
-        const matchPrevCen = matchPrevBlock[0].match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
-        if (matchPrevFra) {
-           originalPrice = "R$ " + matchPrevFra[1];
-           if (matchPrevCen) {
-               originalPrice += "," + matchPrevCen[1];
-           }
-        }
-        
-        const remainingHtml = formatedHtml.substring(formatedHtml.indexOf(matchPrevBlock[0]) + matchPrevBlock[0].length);
-        const matchFracao = remainingHtml.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
-        const matchCentavos = remainingHtml.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
-        if (matchFracao) {
-          price = "R$ " + matchFracao[1];
-          if (matchCentavos) price += "," + matchCentavos[1];
-        }
-      } else {
-        const matchFracao = formatedHtml.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
-        const matchCentavos = formatedHtml.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
-        if (matchFracao) {
-          price = "R$ " + matchFracao[1];
-          if (matchCentavos) price += "," + matchCentavos[1];
-        }
-      }
+      const firstFractionIndex = formatedHtml.indexOf('class="andes-money-amount__fraction"');
+      if (firstFractionIndex !== -1) {
+         const startIndex = Math.max(0, firstFractionIndex - 500);
+         const endIndex = Math.min(formatedHtml.length, firstFractionIndex + 1000);
+         const mainProductBlock = formatedHtml.substring(startIndex, endIndex);
 
-      const matchDiscount = formatedHtml.match(/>(\d+%?\s*OFF)</i);
-      if (matchDiscount) {
-         discount = matchDiscount[1];
+         const matchPrevBlock = mainProductBlock.match(/<s[^>]*andes-money-amount--previous[^>]*>.*?<\/s>/i);
+         if (matchPrevBlock) {
+             const matchPrevFra = matchPrevBlock[0].match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
+             const matchPrevCen = matchPrevBlock[0].match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
+             if (matchPrevFra) {
+                originalPrice = "R$ " + matchPrevFra[1];
+                if (matchPrevCen) {
+                    originalPrice += "," + matchPrevCen[1];
+                }
+             }
+             
+             const remainingHtml = mainProductBlock.substring(mainProductBlock.indexOf(matchPrevBlock[0]) + matchPrevBlock[0].length);
+             const matchFracao = remainingHtml.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
+             const matchCentavos = remainingHtml.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
+             if (matchFracao) {
+               price = "R$ " + matchFracao[1];
+               if (matchCentavos) price += "," + matchCentavos[1];
+             }
+         } else {
+             const matchFracao = mainProductBlock.match(/<span class="andes-money-amount__fraction"[^>]*>([^<]+)<\/span>/);
+             const matchCentavos = mainProductBlock.match(/<span class="andes-money-amount__cents[^>]*>([^<]+)<\/span>/);
+             if (matchFracao) {
+               price = "R$ " + matchFracao[1];
+               if (matchCentavos) price += "," + matchCentavos[1];
+             }
+         }
+
+         const matchDiscount = mainProductBlock.match(/>(\d+%?\s*OFF)</i);
+         if (matchDiscount) {
+            discount = matchDiscount[1];
+         }
       }
 
       // Procura a imagem do Produto (várias alternativas)
