@@ -71,14 +71,29 @@
         btn.disabled = true;
         btn.textContent = 'Enviando...';
       }
-      // Simula envio; em produção: fetch() para API ou action do form
-      setTimeout(function () {
+      
+      var formData = new FormData(FORM);
+      fetch('/', {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString()
+      })
+      .then(function(res) {
+        if (!res.ok) throw new Error('Network response was not ok');
         if (btn) {
           btn.disabled = false;
           btn.textContent = originalText;
         }
-        alert('Mensagem recebida! Em produção, integre este formulário a um backend ou serviço (ex: Formspree, API própria).');
-      }, 800);
+        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+        FORM.reset();
+      })
+      .catch(function() {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }
+        alert('Erro ao enviar mensagem. Por favor, tente pelos canais diretos.');
+      });
     });
   }
 
