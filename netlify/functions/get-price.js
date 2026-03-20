@@ -61,12 +61,14 @@ exports.handler = async function(event, context) {
              parsedPrices.push({ fraction: fractionVal, cents: centsVal });
          }
 
-         const matchDiscount = mainProductBlock.match(/>(\d+%?\s*OFF)</i);
-         if (matchDiscount) {
+         let hasPreviousTag = mainProductBlock.match(/class=["'][^"']*andes-money-amount--previous[^"']*["']/i) !== null;
+         const matchDiscount = mainProductBlock.match(/(\d+%\s*OFF)/i);
+
+         if (matchDiscount || hasPreviousTag) {
              if (parsedPrices.length >= 2) {
                  originalPrice = "R$ " + parsedPrices[0].fraction + "," + parsedPrices[0].cents;
                  price = "R$ " + parsedPrices[1].fraction + "," + parsedPrices[1].cents;
-                 discount = matchDiscount[1];
+                 discount = matchDiscount ? matchDiscount[1] : null;
              } else if (parsedPrices.length === 1) {
                  price = "R$ " + parsedPrices[0].fraction + "," + parsedPrices[0].cents;
              }
