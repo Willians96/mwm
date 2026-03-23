@@ -1,6 +1,13 @@
 {
   "itens": [
     {
+      "nome": "Cadeira Gamer Preto Healer Level Reclinável Com Apoio Pés",
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_716827-MLA105696419889_012026-F.webp",
+      "link": "https://meli.la/2jRL7rN",
+      "plataforma": "Mercado Livre",
+      "categoria": "Acessórios"
+    },
+    {
       "nome": "Monitor Gamer Aoc 24 180hz 0,5ms Ips 24g4/p",
       "preco": "",
       "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_741210-MLA99948558237_112025-F.webp",
@@ -113,13 +120,6 @@
       "imagem": "https://down-tx-br.img.susercontent.com/br-11134207-81z1k-mgl6kjedt1xcf1.webp",
       "plataforma": "Shopee",
       "categoria": "Celulares"
-    },
-    {
-      "nome": "Cadeira Gamer Preto Healer Level Reclinável Com Apoio Pés",
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_716827-MLA105696419889_012026-F.webp",
-      "link": "https://meli.la/2jRL7rN",
-      "plataforma": "Mercado Livre",
-      "categoria": "Acessórios"
     }
   ]
 }
