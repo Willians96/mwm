@@ -1,0 +1,293 @@
+{
+  "data": {
+    "__type": {
+      "fields": [
+        {
+          "name": "shopOfferV2",
+          "args": [
+            {
+              "name": "keyword"
+            },
+            {
+              "name": "shopType"
+            },
+            {
+              "name": "sortType"
+            },
+            {
+              "name": "sellerCommCoveRatio"
+            },
+            {
+              "name": "page"
+            },
+            {
+              "name": "limit"
+            },
+            {
+              "name": "shopId"
+            },
+            {
+              "name": "isKeySeller"
+            }
+          ],
+          "type": {
+            "name": null,
+            "kind": "NON_NULL",
+            "ofType": {
+              "name": "ShopOfferConnectionV2"
+            }
+          }
+        },
+        {
+          "name": "shopeeOfferV2",
+          "args": [
+            {
+              "name": "keyword"
+            },
+            {
+              "name": "sortType"
+            },
+            {
+              "name": "page"
+            },
+            {
+              "name": "limit"
+            }
+          ],
+          "type": {
+            "name": null,
+            "kind": "NON_NULL",
+            "ofType": {
+              "name": "ShopeeOfferConnectionV2"
+            }
+          }
+        },
+        {
+          "name": "productOfferV2",
+          "args": [
+            {
+              "name": "listType"
+            },
+            {
+              "name": "matchId"
+            },
+            {
+              "name": "keyword"
+            },
+            {
+              "name": "sortType"
+            },
+            {
+              "name": "page"
+            },
+            {
+              "name": "limit"
+            },
+            {
+              "name": "itemId"
+            },
+            {
+              "name": "shopId"
+            },
+            {
+              "name": "productCatId"
+            },
+            {
+              "name": "isAMSOffer"
+            },
+            {
+              "name": "isKeySeller"
+            }
+          ],
+          "type": {
+            "name": null,
+            "kind": "NON_NULL",
+            "ofType": {
+              "name": "ProductOfferConnectionV2"
+            }
+          }
+        },
+        {
+          "name": "conversionReport",
+          "args": [
+            {
+              "name": "purchaseTimeStart"
+            },
+            {
+              "name": "purchaseTimeEnd"
+            },
+            {
+              "name": "completeTimeStart"
+            },
+            {
+              "name": "completeTimeEnd"
+            },
+            {
+              "name": "shopName"
+            },
+            {
+              "name": "shopId"
+            },
+            {
+              "name": "shopType"
+            },
+            {
+              "name": "conversionId"
+            },
+            {
+              "name": "conversionStatus"
+            },
+            {
+              "name": "checkoutId"
+            },
+            {
+              "name": "orderId"
+            },
+            {
+              "name": "productName"
+            },
+            {
+              "name": "productId"
+            },
+            {
+              "name": "categoryLv1Id"
+            },
+            {
+              "name": "categoryLv2Id"
+            },
+            {
+              "name": "categoryLv3Id"
+            },
+            {
+              "name": "categoryType"
+            },
+            {
+              "name": "orderStatus"
+            },
+            {
+              "name": "buyerType"
+            },
+            {
+              "name": "productType"
+            },
+            {
+              "name": "fraudStatus"
+            },
+            {
+              "name": "device"
+            },
+            {
+              "name": "attributionType"
+            },
+            {
+              "name": "campaignPartnerName"
+            },
+            {
+              "name": "campaignType"
+            },
+            {
+              "name": "limit"
+            },
+            {
+              "name": "scrollId"
+            }
+          ],
+          "type": {
+            "name": null,
+            "kind": "NON_NULL",
+            "ofType": {
+              "name": "ConversionReportConnection"
+            }
+          }
+        },
+        {
+          "name": "validatedReport",
+          "args": [
+            {
+              "name": "validationId"
+            },
+            {
+              "name": "limit"
+            },
+            {
+              "name": "scrollId"
+            }
+          ],
+          "type": {
+            "name": null,
+            "kind": "NON_NULL",
+            "ofType": {
+              "name": "ValidatedReportConnection"
+            }
+          }
+        },
+        {
+          "name": "partnerOrderReport",
+          "args": [
+            {
+              "name": "purchaseTimeStart"
+            },
+            {
+              "name": "purchaseTimeEnd"
+            },
+            {
+              "name": "completeTimeStart"
+            },
+            {
+              "name": "completeTimeEnd"
+            },
+            {
+              "name": "limit"
+            },
+            {
+              "name": "searchNextToken"
+            }
+          ],
+          "type": {
+            "name": null,
+            "kind": "NON_NULL",
+            "ofType": {
+              "name": "PartnerOrderReportConnection"
+            }
+          }
+        },
+        {
+          "name": "listItemFeeds",
+          "args": [
+            {
+              "name": "feedMode"
+            }
+          ],
+          "type": {
+            "name": null,
+            "kind": "NON_NULL",
+            "ofType": {
+              "name": "ItemFeedListConnection"
+            }
+          }
+        },
+        {
+          "name": "getItemFeedData",
+          "args": [
+            {
+              "name": "datafeedId"
+            },
+            {
+              "name": "offset"
+            },
+            {
+              "name": "limit"
+            }
+          ],
+          "type": {
+            "name": null,
+            "kind": "NON_NULL",
+            "ofType": {
+              "name": "ItemFeedDataConnection"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+# Ignorar arquivos locais de servidor/dependencias
+node_modules/
+.netlify/
+
+# Ignorar variaveis de ambiente sensiveis (Senhas/Chaves)
+.env
+.env.local
+.env.*

@@ -31,8 +31,10 @@ exports.handler = async function(event, context) {
     let discount = null;
     let image = "";
 
+    const finalUrl = response.url || url;
+
     // Lógica Específica para Meli.la ou MercadoLivre
-    if (url.includes("mercadolivre.com.br") || url.includes("meli.la")) {
+    if (finalUrl.includes("mercadolivre.com.br") || finalUrl.includes("meli.la")) {
       const formatedHtml = html.replace(/\n|\r/g, "");
       
       const firstFractionIndex = formatedHtml.indexOf('class="andes-money-amount__fraction"');
@@ -91,8 +93,61 @@ exports.handler = async function(event, context) {
       else if (matchMlsWebp) image = matchMlsWebp[0];
       else if (matchMlsJpg) image = matchMlsJpg[0];
       else if (fallbackImg) image = fallbackImg[1];
+    } else if (finalUrl.includes("shopee.com.br") || finalUrl.includes("shope.ee")) {
+      const matchItemId = finalUrl.match(/-i\.(\d+)\.(\d+)/) || finalUrl.match(/\/(\d+)\/(\d+)\??/);
+      if (matchItemId) {
+        const itemId = parseInt(matchItemId[2], 10);
+        const appId = process.env.SHOPEE_APP_ID;
+        const appSecret = process.env.SHOPEE_APP_SECRET;
+
+        if (appId && appSecret) {
+            const crypto = require('crypto');
+            const apiUrl = 'https://open-api.affiliate.shopee.com.br/graphql';
+            const timestamp = Math.floor(Date.now() / 1000).toString();
+            const payload = JSON.stringify({ 
+              query: `query { productOfferV2(itemId: ${itemId}) { nodes { price priceMin priceDiscountRate imageUrl } } }` 
+            });
+            
+            const signString = appId + timestamp + payload + appSecret;
+            const signature = crypto.createHash('sha256').update(signString).digest('hex');
+            
+            try {
+              const shopeeRes = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `SHA256 Credential=${appId}, Timestamp=${timestamp}, Signature=${signature}`
+                },
+                body: payload
+              });
+              
+              if (shopeeRes.ok) {
+                  const sData = await shopeeRes.json();
+                  const node = sData?.data?.productOfferV2?.nodes?.[0];
+                  if (node) {
+                      if (node.priceMin || node.price) {
+                          const currentPrice = parseFloat(node.priceMin || node.price);
+                          price = "R$ " + currentPrice.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                          
+                          if (node.priceDiscountRate > 0) {
+                              discount = node.priceDiscountRate + "% OFF";
+                              const origPrice = currentPrice / (1 - (node.priceDiscountRate / 100));
+                              originalPrice = "R$ " + origPrice.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                          }
+                      }
+                      if (node.imageUrl) {
+                          image = node.imageUrl;
+                      }
+                  }
+              }
+            } catch (err) {
+              console.error("Shopee API Error:", err);
+            }
+        } else {
+            console.warn("Shopee API keys are missing in environment variables.");
+        }
+      }
     }
-    // TODO: Adicionar lógica da amazon/shopee caso queira
 
     return {
       statusCode: 200,

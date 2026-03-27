@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. Dispara requests dinâmicos para atualizar em tempo real
     produtos.forEach((p, i) => {
       // Se não definiu o preco/imagem no admin (ou mesmo se quiser sobrepor)
-      if (!p.preco || !p.imagem || p.link.includes('meli.la') || p.link.includes('mercadolivre.com')) {
+      if (!p.preco || !p.imagem || p.link.includes('meli.la') || p.link.includes('mercadolivre.com') || p.link.includes('shopee.com.br') || p.link.includes('shope.ee')) {
         fetchPrecoDinamico(p, i);
       }
     });
