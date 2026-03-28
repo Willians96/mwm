@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return { class: "platform-ml", bg: "#e6f0ff", color: "#3483fa", tag: "MERCADO LIVRE" };
     }
     if (plataforma.toLowerCase().includes("shopee")) {
-      return { class: "platform-shopee", bg: "#fcefe9", color: "#ee4d2d", tag: "ESCOLHA SHOPEE" };
+      return { class: "platform-shopee", bg: "#fcefe9", color: "#ee4d2d", tag: "SHOPEE" };
     }
     if (plataforma.toLowerCase().includes("amazon")) {
       return { class: "platform-amazon", bg: "#f3f6fb", color: "#232F3E", tag: "NOVIDADE" };
