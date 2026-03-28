@@ -160,3 +160,31 @@ priceEl.innerHTML = \`<span style="color: #999; font-size: 0.75em; text-decorati
 ```
 
 A combinação destas lógicas de design faz com que nossos blocos injetados artificialmente da nuvem transpareçam 100% de confiança para o clique e compra de comissão do Afiliado.
+
+## 6. Grid Responsivo (Mobile x Tablet x Desktop)
+O container principal dos produtos deve utilizar \`display: grid;\` com quebras bem definidas para manter a legibilidade sem espremer conteúdo:
+```css
+.grid--3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Desktop: 3 colunas */
+  gap: 2rem;
+}
+
+@media (max-width: 992px) {
+  .grid--3 {
+    grid-template-columns: repeat(2, 1fr); /* Tablet: 2 colunas */
+  }
+}
+
+@media (max-width: 576px) {
+  .grid--3 {
+    grid-template-columns: 1fr; /* Mobile: 1 coluna cheia */
+  }
+}
+```
+
+## 7. O Poder do Call To Action (Botão de Compra)
+Evite termos genéricos ou passivos como "Ver na Loja". O botão é a âncora visual do card.
+- **Formato:** Ocupe 100% da largura do card inferior.
+- **Visual:** Fundo "esmaecido" e texto forte da cor primária da marca (ex: \`#e6f0ff\` bg e \`#3483fa\` text para ML).
+- **Ação:** Imperativo, com ícones. Ex: **Comprar Agora 🛒**.
