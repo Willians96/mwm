@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!plataforma) return { class: "", bg: "#e6f0ff", color: "#3483fa", tag: "RECOMENDADO" };
     
     if (plataforma.toLowerCase().includes("mercado livre") || plataforma.toLowerCase() === "ml") {
-      return { class: "platform-ml", bg: "#e6f0ff", color: "#3483fa", tag: "MAIS VENDIDO" };
+      return { class: "platform-ml", bg: "#e6f0ff", color: "#3483fa", tag: "MERCADO LIVRE" };
     }
     if (plataforma.toLowerCase().includes("shopee")) {
       return { class: "platform-shopee", bg: "#fcefe9", color: "#ee4d2d", tag: "ESCOLHA SHOPEE" };
