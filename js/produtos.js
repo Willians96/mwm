@@ -7,18 +7,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Função auxiliar para definir classes e cores baseado na plataforma
   function getPlataformaInfo(plataforma) {
-    if (!plataforma) return { class: "", color: "var(--color-blue)", textColor: "#fff" };
+    if (!plataforma) return { class: "", bg: "#e6f0ff", color: "#3483fa", tag: "RECOMENDADO" };
     
     if (plataforma.toLowerCase().includes("mercado livre") || plataforma.toLowerCase() === "ml") {
-      return { class: "platform-ml", color: "#3483fa", textColor: "#fff" };
+      return { class: "platform-ml", bg: "#e6f0ff", color: "#3483fa", tag: "MAIS VENDIDO" };
     }
     if (plataforma.toLowerCase().includes("shopee")) {
-      return { class: "platform-shopee", color: "#ee4d2d", textColor: "#fff" };
+      return { class: "platform-shopee", bg: "#fcefe9", color: "#ee4d2d", tag: "ESCOLHA SHOPEE" };
     }
     if (plataforma.toLowerCase().includes("amazon")) {
-      return { class: "platform-amazon", color: "#ff9900", textColor: "#111" };
+      return { class: "platform-amazon", bg: "#f3f6fb", color: "#232F3E", tag: "NOVIDADE" };
     }
-    return { class: "", color: "var(--color-blue)", textColor: "#fff" }; // Padrão
+    return { class: "", bg: "#e6f0ff", color: "#3483fa", tag: "OFERTA" }; // Padrão
   }
 
   // Gera HTML de um Produto
@@ -32,16 +32,22 @@ document.addEventListener("DOMContentLoaded", () => {
     let precoExibicao = produto.preco || "Verificando...";
 
     return `
-      <li class="product-card card" data-categoria="${produto.categoria || 'Geral'}" id="prod-${index}">
+      <li class="product-card" data-categoria="${produto.categoria || 'Geral'}" id="prod-${index}">
         <div class="product-image-container">
-          ${produto.plataforma ? `<span class="product-platform ${platInfo.class}">${produto.plataforma}</span>` : ''}
+          <span class="product-platform ${platInfo.class}">${platInfo.tag}</span>
           <img src="${urlImagem}" class="product-image" alt="${produto.nome}" loading="lazy" id="img-prod-${index}">
         </div>
-        <h3 class="product-title">${produto.nome}</h3>
-        <p class="product-price" id="price-prod-${index}">${precoExibicao}</p>
-        <a href="${produto.link}" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--full" style="background-color: ${platInfo.color}; border-color: ${platInfo.color}; color: ${platInfo.textColor}; margin-top: auto;">
-          Ver na Loja
-        </a>
+        <div style="padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1;">
+          <h3 class="product-title">${produto.nome}</h3>
+          <div class="product-price-box" id="price-prod-${index}">
+             <span class="product-price" style="font-size:1.1rem; color:#666;">${precoExibicao}</span>
+          </div>
+          <a href="${produto.link}" target="_blank" rel="noopener noreferrer" 
+             style="background-color: ${platInfo.bg}; color: ${platInfo.color}; text-decoration: none; text-align: center; border-radius: 6px; padding: 10px; font-weight: 600; font-size: 0.9rem; transition: filter 0.2s; margin-top: auto;"
+             onmouseover="this.style.filter='brightness(0.95)'" onmouseout="this.style.filter='brightness(1)'">
+            Consultar na Loja
+          </a>
+        </div>
       </li>
     `;
   }
@@ -61,15 +67,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const imgEl = document.getElementById(`img-prod-${index}`);
         
         if (priceEl && data.price && data.price !== "Consultar Site") {
+          // Extraindo o centavo se houver vírgula para simular ML visual
+          const priceParts = data.price.split(",");
+          const mainPrice = priceParts[0];
+          const cents = priceParts[1] ? `<sup style="font-size:0.5em; vertical-align: top; top: 0.3em; margin-left:2px">${priceParts[1]}</sup>` : `<sup style="font-size:0.5em; vertical-align: top; top: 0.3em; margin-left:2px">00</sup>`;
+
           if (data.originalPrice && data.discount) {
-            priceEl.innerHTML = `<span style="display: block; color: #999; font-size: 0.6em; font-weight: normal; line-height: 1; margin-bottom: 4px;"><s>${data.originalPrice}</s></span>
-                                 <span style="color: #00A650;">${data.price}</span>
-                                 <span style="color: #00A650; font-size: 0.65em; font-weight: 700; margin-left: 6px;">${data.discount}</span>`;
+            priceEl.innerHTML = `<span style="display: block; color: #999; font-size: 0.75em; font-weight: 400; text-decoration: line-through; margin-bottom: 2px;">${data.originalPrice}</span>
+                                 <div style="display:flex; align-items:baseline;">
+                                    <span class="product-price">${mainPrice}${cents}</span>
+                                    <span style="color: #00A650; font-size: 0.8rem; font-weight: 500; margin-left: 6px;">${data.discount}</span>
+                                 </div>`;
           } else {
-            priceEl.textContent = data.price;
+            priceEl.innerHTML = `<span class="product-price">${mainPrice}${cents}</span>`;
           }
         } else if (priceEl && !produto.preco) {
-           priceEl.textContent = "Consultar na Loja";
+           priceEl.innerHTML = `<span class="product-price" style="font-size:1.1rem; color:#666;">Ver Oferta Oficial</span>`;
         }
         
         if (imgEl && data.image && !produto.imagem) {
