@@ -15,6 +15,20 @@
       "link": "https://s.shopee.com.br/5fkMQPl4qD"
     },
     {
+      "nome": "Smartphone Xiaomi POCO C85 4G, NFC Tela LCD 6.9\", Câmera 50MP, Versão Global Original Lacrado",
+      "imagem": "https://down-br.img.susercontent.com/file/sg-11134201-824ih-mf7g0h3bbf2h48@resize_w900_nl.webp",
+      "link": "https://s.shopee.com.br/6L060ET9VD",
+      "plataforma": "Shopee",
+      "categoria": "Celulares"
+    },
+    {
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_979995-MLA82586784640_032025-F.webp",
+      "plataforma": "Mercado Livre",
+      "link": "https://meli.la/2p6nXCf",
+      "nome": "PC Gamer BluePC Joy - Intel Core i5 9400F, 16GB DDR4, GeForce RTX 3050 6GB, SSD 480GB, Fonte 500W 80 Plus - PGBP-JO100",
+      "categoria": "Computadores"
+    },
+    {
       "nome": "Xiaomi Poco X7 512GB/256GB Dual Sim 5G Tela 6.67 Global",
       "imagem": "https://down-br.img.susercontent.com/file/br-11134207-81z1k-mi12p6kkwb2a63@resize_w900_nl.webp",
       "link": "https://s.shopee.com.br/5q3maBzSxm",
@@ -164,13 +178,6 @@
       "categoria": "Computadores"
     },
     {
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_979995-MLA82586784640_032025-F.webp",
-      "plataforma": "Mercado Livre",
-      "link": "https://meli.la/2p6nXCf",
-      "nome": "PC Gamer BluePC Joy - Intel Core i5 9400F, 16GB DDR4, GeForce RTX 3050 6GB, SSD 480GB, Fonte 500W 80 Plus - PGBP-JO100",
-      "categoria": "Computadores"
-    },
-    {
       "nome": "Rastreador de Bagagem TAG ITAG Mala Anti-Perda Mini Localizador Chaveiro GPS",
       "imagem": "https://down-br.img.susercontent.com/file/br-11134207-7r98o-mduwcexzffnk47.webp",
       "link": "https://s.shopee.com.br/2VnNQRrnoQ",
@@ -183,13 +190,6 @@
       "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_900556-MLU76287953969_052024-F.webp",
       "plataforma": "Mercado Livre",
       "categoria": "Computadores"
-    },
-    {
-      "nome": "Smartphone Xiaomi POCO C85 4G, NFC Tela LCD 6.9\", Câmera 50MP, Versão Global Original Lacrado",
-      "imagem": "https://down-br.img.susercontent.com/file/sg-11134201-824ih-mf7g0h3bbf2h48@resize_w900_nl.webp",
-      "link": "https://s.shopee.com.br/6L060ET9VD",
-      "plataforma": "Shopee",
-      "categoria": "Celulares"
     }
   ]
 }
