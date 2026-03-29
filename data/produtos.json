@@ -29,6 +29,13 @@
       "categoria": "Computadores"
     },
     {
+      "link": "https://s.shopee.com.br/6L061cGp8b",
+      "nome": "PC Gamer Forge, AMD RYZEN 5 3400G, 16GB DDR4, SSD 480GB, 400W 80 Plus, Completo com Monitor 21 e Periféricos",
+      "imagem": "https://down-br.img.susercontent.com/file/br-11134207-81z1k-mi1l7hdiq29ve5@resize_w900_nl.webp",
+      "plataforma": "Shopee",
+      "categoria": "Computadores"
+    },
+    {
       "nome": "Xiaomi Poco X7 512GB/256GB Dual Sim 5G Tela 6.67 Global",
       "imagem": "https://down-br.img.susercontent.com/file/br-11134207-81z1k-mi12p6kkwb2a63@resize_w900_nl.webp",
       "link": "https://s.shopee.com.br/5q3maBzSxm",
@@ -189,13 +196,6 @@
       "link": "https://meli.la/2mWt4L8",
       "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_900556-MLU76287953969_052024-F.webp",
       "plataforma": "Mercado Livre",
-      "categoria": "Computadores"
-    },
-    {
-      "link": "https://s.shopee.com.br/6L061cGp8b",
-      "nome": "PC Gamer Forge, AMD RYZEN 5 3400G, 16GB DDR4, SSD 480GB, 400W 80 Plus, Completo com Monitor 21 e Periféricos",
-      "imagem": "https://down-br.img.susercontent.com/file/br-11134207-81z1k-mi1l7hdiq29ve5@resize_w900_nl.webp",
-      "plataforma": "Shopee",
       "categoria": "Computadores"
     }
   ]
