@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="${produto.link}" target="_blank" rel="noopener noreferrer" 
              style="background-color: ${platInfo.bg}; color: ${platInfo.color}; text-decoration: none; text-align: center; border-radius: 6px; padding: 10px; font-weight: 600; font-size: 0.9rem; transition: filter 0.2s; margin-top: auto;"
              onmouseover="this.style.filter='brightness(0.95)'" onmouseout="this.style.filter='brightness(1)'">
-            Comprar Agora 🛒
+            Saiba Mais
           </a>
         </div>
       </li>
