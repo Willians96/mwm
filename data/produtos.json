@@ -29,6 +29,13 @@
       "categoria": "Computadores"
     },
     {
+      "nome": "Apple iPhone 16 (256 GB) - Branco - Distribuidor Autorizado",
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_796141-MLA79138739857_092024-F.webp",
+      "link": "https://meli.la/1gAFX42",
+      "plataforma": "Mercado Livre",
+      "categoria": "Celulares"
+    },
+    {
       "link": "https://s.shopee.com.br/6L061cGp8b",
       "nome": "PC Gamer Forge, AMD RYZEN 5 3400G, 16GB DDR4, SSD 480GB, 400W 80 Plus, Completo com Monitor 21 e Periféricos",
       "imagem": "https://down-br.img.susercontent.com/file/br-11134207-81z1k-mi1l7hdiq29ve5@resize_w900_nl.webp",
@@ -218,13 +225,6 @@
       "link": "https://meli.la/1qcb6NN",
       "plataforma": "Mercado Livre",
       "categoria": "Games"
-    },
-    {
-      "nome": "Apple iPhone 16 (256 GB) - Branco - Distribuidor Autorizado",
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_796141-MLA79138739857_092024-F.webp",
-      "link": "https://meli.la/1gAFX42",
-      "plataforma": "Mercado Livre",
-      "categoria": "Celulares"
     }
   ]
 }
