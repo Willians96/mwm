@@ -192,18 +192,18 @@
       "categoria": "Acessórios"
     },
     {
-      "nome": "Notebook ASUS Vivobook Go 15 E1504 AMD RYZEN 5 7520U 8GB Ram 256GB SSD Linux KeepOS 15,6” FHD Black E1504FA-NJ731",
-      "link": "https://meli.la/2mWt4L8",
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_704941-MLU76287953959_052024-F.webp",
-      "plataforma": "Mercado Livre",
-      "categoria": "Computadores"
-    },
-    {
       "nome": "Console Nintendo Switch 2, Modelo Nacional de Tomada",
       "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_785396-MLA99867558581_112025-F.webp",
       "link": "https://meli.la/1zDSrgR",
       "plataforma": "Mercado Livre",
       "categoria": "Games"
+    },
+    {
+      "nome": "Notebook ASUS Vivobook Go 15 E1504 AMD RYZEN 5 7520U 8GB Ram 256GB SSD Linux KeepOS 15,6” FHD Black E1504FA-NJ731",
+      "link": "https://meli.la/2mWt4L8",
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_704941-MLU76287953959_052024-F.webp",
+      "plataforma": "Mercado Livre",
+      "categoria": "Computadores"
     },
     {
       "nome": "Microfone Sem Fio Lapela vianova Imã Duplo Anti Ruído para Iphone 11 12 13 14",
@@ -218,6 +218,13 @@
       "link": "https://meli.la/1qcb6NN",
       "plataforma": "Mercado Livre",
       "categoria": "Games"
+    },
+    {
+      "preco": "",
+      "link": "https://meli.la/2cdLHGz",
+      "plataforma": "Mercado Livre",
+      "categoria": "Assessórios",
+      "nome": "Huawei AX2s ws7000 wi-fi 6"
     }
   ]
 }
